@@ -36,6 +36,7 @@ const Input = React.forwardRef(({label, input, extraValidation}, ref) => {
           onBlur={()=> setInvalid(
             checkInvalid(ref.current.value)
           )}
+          onFocus={()=> setInvalid(false)}
           defaultValue={""}
         />
       </div>
