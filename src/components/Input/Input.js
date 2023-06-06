@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./Input.module.css";
 
 const Input = React.forwardRef(({label, input, extraValidation}, ref) => {
@@ -10,7 +10,21 @@ const Input = React.forwardRef(({label, input, extraValidation}, ref) => {
     invalid ? classes.invalid : ""
   }`;
 
-  // TODO: onBlur 함수 받아오기 (기본 = )
+
+  // 조건문 간료화 ---> if X do Y else do Z = X ? Y : Z
+  const checkInvalid = (value) => typeof extraValidation === 'function' ? !extraValidation(value) :!Boolean(value.trim())
+  /**
+   * 위의 함수와 다음의 함수는 같은 함수입니다. 
+   * const checkInvalid = () => {
+   *  if(typeof extravalidation === 'function') {
+   *    return !extraValidation(value)
+   *  }
+   *  
+   *  return !Boolean(value.trim())
+   * }
+   */
+
+
   return (
     <>
       <div className={inputControlClasses}>
@@ -20,7 +34,7 @@ const Input = React.forwardRef(({label, input, extraValidation}, ref) => {
           id={id}
           ref={ref}
           onBlur={()=> setInvalid(
-            !Boolean(ref.current.value.trim())
+            checkInvalid(ref.current.value)
           )}
           defaultValue={""}
         />
