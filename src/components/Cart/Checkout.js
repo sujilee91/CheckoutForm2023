@@ -62,23 +62,19 @@ const Checkout = (props) => {
   const formList = [
     {name: 'name', label: 'Your name', ref: nameInputRef},
     {name: 'street', label: 'Your street', ref: streetInputRef},
-    {name: 'postal', label: 'Postal Code', ref: postalCodeInputRef},
-    {name: 'city', label: 'City', ref: cityInputRef, validate: (value)=> value?.length === 5 },
+    {name: 'postal', label: 'Postal Code', ref: postalCodeInputRef, extraValidation: (value)=> value?.trim().length === 5 },
+    {name: 'city', label: 'City', ref: cityInputRef},
   ]
-    const [formValue, setFormValue] = useState({
-      name: '',
-      street: '',
-      postal: '',
-      city: ''
-    })
+
     return (
     <form className={classes.form} onSubmit={confirmHandler}>
-      {formList.map(({ref, name,label, validate})=> 
+      {formList.map(({ref, name,label, extraValidation})=> 
         <Input
           key={name}
           ref={ref}
           label={label}
           input={{ type: "text", id: `${name}` }}
+          extraValidation={extraValidation}
         />
       )}
 

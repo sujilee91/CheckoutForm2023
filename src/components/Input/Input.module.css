@@ -14,3 +14,17 @@
   width: 20rem;
   max-width: 100%;
 }
+
+p {
+    margin-top: 0px;
+  }
+
+.invalid label {
+    color: #ca3e51;
+  }
+  
+.invalid input {
+  border-color: #aa0b20;
+  background-color: #ffeff1;
+}
+  

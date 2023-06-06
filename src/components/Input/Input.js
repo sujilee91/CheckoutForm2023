@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import classes from "./Input.module.css";
 
-const Input = React.forwardRef(({label, input, onChange, isInputValid}, ref) => {
-  const inputControlClasses = `${classes.control} ${
-    isInputValid ? classes.invalid : ""
-  }`;
-
+const Input = React.forwardRef(({label, input, extraValidation}, ref) => {
   const {type, id} = input
 
-  const [value, setInputValue] = useState("")
-  const [invalid, setInvaid] = useState(false)
+  const [invalid, setInvalid] = useState(false)
+
+  const inputControlClasses = `${classes.control} ${
+    invalid ? classes.invalid : ""
+  }`;
+
+  // TODO: onBlur 함수 받아오기 (기본 = )
   return (
     <>
       <div className={inputControlClasses}>
@@ -18,7 +19,9 @@ const Input = React.forwardRef(({label, input, onChange, isInputValid}, ref) => 
           type={type}
           id={id}
           ref={ref}
-          onBlur={()=> setInvaid(!Boolean(ref.current.value.trim()))}
+          onBlur={()=> setInvalid(
+            !Boolean(ref.current.value.trim())
+          )}
           defaultValue={""}
         />
       </div>
